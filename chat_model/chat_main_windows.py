@@ -4,6 +4,10 @@ from PyQt5.QtCore import Qt, pyqtSignal, QThread, QEvent, QSize, QTimer
 from .chat_function import ChatDialogBody
 
 class ChatWindow(QMainWindow):
+    '''
+        这里进行了chat主体交流的面板，但是考虑到可能尝试多种LLM，应该保存多个版本？
+        同样的，在原先的版本里，写了一些功能，这些功能未必是我们所需要的，考虑删除
+    '''
     def __init__(self, parent=None,config="private_config.ini"):
         super().__init__(parent)
         self.setWindowTitle(f'与{config["Pet"]["NICKNAME"]}聊天')

@@ -11,7 +11,9 @@ from .chat_windows import MessageWidget, ChatWidget
 class ChatDialogBody(QDialog):
     # 在这里定义一个信号
     message_received = pyqtSignal(str, str)
-
+    '''
+        这里是聊天窗口内容与chat的交互，我们需要将这里改成其它LLM，或者能够使用openAI，暂时也行
+    '''
     def __init__(self, config, parent=None):
         super().__init__(parent)
         
