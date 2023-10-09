@@ -106,6 +106,10 @@ class DesktopPet(QWidget, QObject):
 
     # 快捷键启动窗口
     def toggle_chat_window(self):
+        '''
+            这里是启动 聊天窗口创建与关闭 的函数——在这里设计最终启用的LLM是什么
+            关键在于ChatWindow类
+        '''
         if self.chat_window_open:
             self.chat_window.close()
             self.chat_window_open = False

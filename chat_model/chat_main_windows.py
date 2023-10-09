@@ -82,6 +82,9 @@ class ChatWindow(QMainWindow):
         # # 隐藏宠物
         # parent.hide_pet()
 
+
+
+
     def closeEvent(self, event):
     # 关闭聊天窗口时，将宠物重新显示出来
         self.parent().show_pet()
@@ -104,6 +107,7 @@ class ChatWindow(QMainWindow):
     def python_slot(self):
         message = f'我希望你表现得像个Python解释器。我会给你Python代码，你会执行它。不要提供任何解释。'+\
             '除了代码的输出之外，不要使用任何东西进行响应。第一个代码是：“打印（‘你好世界！’）”'
+
         self.send_to_gpt(message)
 
     def text_adventure(self):
@@ -113,6 +117,11 @@ class ChatWindow(QMainWindow):
 
     #通用函数
     def send_to_gpt(self,message):
+        '''
+            在这个函数中，用了一些方法，将历史聊天记录也发给了GPT，从而得到了一些承上启下的作用
+            但是，目前我们如果使用GLM，没有办法直接使用GPT接口发送历史内容进行承上启下
+            此部分存留
+        '''
         self.chat_dialog_body.add_message("system",message)
         # 更新历史上下文
         self.chat_dialog_body.context_history[2].append(message)

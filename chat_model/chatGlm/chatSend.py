@@ -23,8 +23,6 @@ except socket.error.msg:
     sys.exit();
 
 
-def send_socket_info(handle, msg):
-    handle.send(msg)
 
 
 def receive_socket_info(handle, expected_msg, side='server', do_decode=True, do_print_info=True):
@@ -77,9 +75,9 @@ def server_set(text):  # 创建一个链接
         if respone=="正在处理":
             print("正在处理")
             answer=server.recv(BUFFER_SIZE).decode()
-            print(answer)
+            return answer
         else:
-            print("输入错误")
+            print("存在错误，第一次返回为非 正在处理 ")
 
 
     except:
@@ -87,4 +85,3 @@ def server_set(text):  # 创建一个链接
         sys.exit()
 
 
-server_set("你好呀")

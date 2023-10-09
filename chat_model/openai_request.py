@@ -8,6 +8,10 @@ import time
 from PyQt5.QtCore import QThread, pyqtSignal
 from concurrent.futures import ThreadPoolExecutor
 
+
+from chat_model.chatGlm.chatSend import server_set
+
+
 # private_config.py放自己的秘密如API和代理网址
 # 读取时首先看是否存在私密的config_private配置文件（不受git管控），如果有，则覆盖原config文件
 class OpenAI_request(QThread):
@@ -36,11 +40,20 @@ class OpenAI_request(QThread):
 
         self.session = requests.Session()
         self.headers = {"Content-Type": "application/json", "Authorization": f"Bearer {self.api_key}"}
+
+        #设计启动的LLM类型
+        self.LLM=self.config["LLM"]["LLM_NAME"]
     
     def run(self):
         while True:
-            prompt, context, sys_prompt, tools = self.prompt_queue.get()  # 从队列中获取 prompt 和 context    
-            self.get_response_from_gpt(inputs=prompt, history=context,sys_prompt=sys_prompt ,tools=tools)
+            prompt, context, sys_prompt, tools = self.prompt_queue.get()  # 从队列中获取 prompt 和 context
+            if self.LLM=="GLM":
+                response = server_set(prompt)
+                self.tools_received.emit(response)
+                self.response_received.emit(response)
+                print(response)
+            else:
+                self.get_response_from_gpt(inputs=prompt, history=context,sys_prompt=sys_prompt ,tools=tools)
             # time.sleep(0.1)
 
     def get_full_error(self, chunk, stream_response):
@@ -147,7 +160,8 @@ class OpenAI_request(QThread):
                 break
             except requests.exceptions.ConnectionError:
                 chunk = next(stream_response).decode() # 失败了，重试一次？再失败就没办法了。
-            if len(chunk)==0: continue
+            if len(chunk)==0:
+                continue
             if not chunk.startswith('data:'): 
                 error_msg = self.get_full_error(chunk.encode('utf8'), stream_response).decode()
                 if "reduce the length" in error_msg:
