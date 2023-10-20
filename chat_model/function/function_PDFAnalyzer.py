@@ -2,7 +2,7 @@ from .crazy_utils import read_and_clean_pdf_text
 import time
 from PyQt5.QtWidgets import QFileDialog
 from PyQt5.QtCore import QThread
-from ..openai_request import OpenAI_request
+from ..LLM_request import OpenAI_request
 
 class PDFAnalyzer:
     def __init__(self, chat_dialog_body,config):

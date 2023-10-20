@@ -22,3 +22,4 @@ tiktoken==0.3.3
 torch==2.0.0
 transformers==4.28.1
 websockets==11.0.1
+socket

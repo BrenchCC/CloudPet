@@ -1,4 +1,5 @@
-import os; os.environ['no_proxy'] = '*' # 避免代理网络产生意外污染
+import os;
+os.environ['no_proxy'] = '*' # 避免代理网络产生意外污染
 
 
 

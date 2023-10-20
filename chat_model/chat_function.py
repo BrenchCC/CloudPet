@@ -4,7 +4,8 @@ from PyQt5.QtCore import Qt, pyqtSignal, QThread, QEvent, QSize, QTimer, pyqtSlo
 from PyQt5.QtGui import QKeyEvent
 import datetime
 import os
-from .openai_request import OpenAI_request
+
+from .LLM_request import OpenAI_request
 from .chat_windows import MessageWidget, ChatWidget
 
 # 聊天的具体实现

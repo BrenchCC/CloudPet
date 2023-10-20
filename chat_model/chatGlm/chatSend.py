@@ -84,4 +84,3 @@ def server_set(text):  # 创建一个链接
         print("链接失败")
         sys.exit()
 
-
