@@ -14,6 +14,7 @@ import keyboard
 import threading
 
 
+
 class DesktopPet(QWidget, QObject):
     def __init__(self, config):
         super().__init__()
